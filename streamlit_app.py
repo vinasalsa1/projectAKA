@@ -152,3 +152,16 @@ with st.expander("🧪 Contoh Perhitungan"):
     T = \\frac{P \\times V}{n \\times R} = \\frac{1 \\times 22.4}{1 \\times 0.082057} = 273.15 \\text{ K}
     $$
     """)
+
+# Using object notation
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
+)
+
+# Using "with" notation
+with st.sidebar:
+    add_radio = st.radio(
+        "Choose a shipping method",
+        ("Standard (5-15 days)", "Express (2-5 days)")
+    )
