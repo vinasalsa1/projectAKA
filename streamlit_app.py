@@ -3,8 +3,11 @@ import streamlit as st
 tab1, tab2, tab3, tab4 = st.tabs(["🏠 Beranda", "📘 Teori", "🧮 Kalkulator", "ℹ️ About Us"])
 
 with tab1:
-    st.header("Selamat Datang di Aplikasi Gas Ideal")
-    # konten Beranda
+    st.header("🏠 Selamat Datang di Aplikasi Gas Ideal")
+    st.write("""
+    Aplikasi ini membantu kamu memahami dan menghitung hubungan antara tekanan, volume, suhu, dan jumlah mol menggunakan **persamaan gas ideal**.
+    Silakan navigasi ke tab 'Kalkulator' untuk mulai perhitungan.
+    """)
 
 with tab2:
     st.header("Teori Gas Ideal")
