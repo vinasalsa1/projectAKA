@@ -302,7 +302,34 @@ with tab3:
     
 
 with tab4:
-    st.header("Tentang Kami")
-    # konten about
+    st.header("ℹ️ Tentang Kami")
 
+    st.subheader("Kelompok 8 – Mata Kuliah Logika Pemrograman Komputer")
+
+    st.write("""
+    Aplikasi ini dikembangkan oleh **Kelompok 8** sebagai bagian dari tugas proyek pada mata kuliah *Logika Pemrograman Komputer*  
+    Program Studi **D3 Analisis Kimia**, dengan tujuan untuk menerapkan konsep logika pemrograman dalam konteks ilmiah yang relevan 
+    dengan bidang keilmuan kami.
+
+    **Anggota Kelompok 8:**
+    1. Aulia Cahyani 
+    2. Firdaus Cahya Ramadhan
+    3. Muhammad Daffa Faliha
+    4. Praya Athalla Pantow
+    5. Vina Salsabila Karina Effendi
+
+    ---
+    """)
+
+    st.subheader("Tujuan Pengembangan Aplikasi")
+
+    st.write("""
+    Aplikasi **Kalkulator Gas Ideal** ini bertujuan untuk membantu pengguna, baik mahasiswa, dosen, maupun praktisi kimia, 
+    dalam memahami dan menghitung hubungan antara tekanan, volume, suhu, dan jumlah mol suatu gas berdasarkan **persamaan gas ideal (PV = nRT)**.  
+    Dengan antarmuka yang interaktif dan sistem satuan yang konsisten, aplikasi ini diharapkan mampu mempermudah proses simulasi dan perhitungan 
+    pada berbagai kondisi eksperimen, khususnya dalam konteks pembelajaran maupun penelitian dasar di bidang kimia analitik dan termodinamika.
+
+    Aplikasi ini dirancang dengan mengintegrasikan logika pemrograman dasar menggunakan bahasa Python dan modul Streamlit, 
+    sehingga tidak hanya mendukung penguatan pemahaman konsep gas ideal, tetapi juga menjadi media pembelajaran pengembangan aplikasi berbasis data ilmiah.
+    """)
 
