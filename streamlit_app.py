@@ -4,7 +4,7 @@ st.markdown("""
 <style>
 /* === LATAR BELAKANG & TEKS === */
 .stApp {
-    background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);  /* Warna klasik krem */
+    background: linear(to bottom, #FFFFFF, #FFFFF)F;  /* Warna klasik krem */
     color: #3e2723;  /* Coklat tua klasik */
     font-family: 'Georgia', serif;
     font-size: 16px;
