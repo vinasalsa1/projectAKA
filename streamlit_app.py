@@ -2,65 +2,107 @@ import streamlit as st
 
 st.title("Persamaan Gas Ideal Kalkulator")
 
-import streamlit as st
+# Konstanta gas ideal dalam berbagai satuan
+R_values = {
+    "L.atm/(mol.K)": 0.082057,
+    "J/(mol.K)": 8.314,
+    "L.kPa/(mol.K)": 8.314,
+    "L.mmHg/(mol.K)": 62.3636
+}
 
 # Judul aplikasi
-st.title("Kalkulator Persamaan Gas Ideal - PV=nRT")
+st.title("Kalkulator Gas Ideal - PV=nRT")
 
-# Fungsi untuk mengonversi satuan
-def convert_pressure(value, unit):
-    if unit == "atm":
-        return value
-    elif unit == "Pa":
-        return value / 101325
-    elif unit == "mmHg":
-        return value / 760
+# Pilih satuan R
+R_unit = st.selectbox("Pilih satuan R:", list(R_values.keys()))
+R = R_values[R_unit]
 
-def convert_volume(value, unit):
-    if unit == "liter":
-        return value
-    elif unit == "m3":
-        return value * 1000
+# Input dari pengguna
+st.header("Masukkan nilai yang diketahui:")
+pressure_unit = st.selectbox("Pilih satuan tekanan:", ["atm", "kPa", "mmHg"])
+P = st.number_input(f"Tekanan ({pressure_unit})", min_value=0.0, format="%.2f", step=0.01)
 
-def convert_temperature(value, unit):
-    if unit == "K":
-        return value
-    elif unit == "C":
-        return value + 273.15
+volume_unit = st.selectbox("Pilih satuan volume:", ["L", "m³"])
+V = st.number_input(f"Volume ({volume_unit})", min_value=0.0, format="%.2f", step=0.01)
 
-# Input variabel
-P = st.number_input("Tekanan (P):", min_value=0.0)
-P_unit = st.selectbox("Satuan Tekanan:", ["atm", "Pa", "mmHg"])
+n = st.number_input("Jumlah Mol (mol)", min_value=0.0, format="%.2f", step=0.01)
 
-V = st.number_input("Volume (V):", min_value=0.0)
-V_unit = st.selectbox("Satuan Volume:", ["liter", "m3"])
+temperature_unit = st.selectbox("Pilih satuan suhu:", ["K", "°C"])
+T = st.number_input(f"Suhu ({temperature_unit})", min_value=0.0, format="%.2f", step=0.01)
 
-n = st.number_input("Jumlah zat (n) dalam mol:", min_value=0.0)
+# Konversi suhu dari Celsius ke Kelvin jika perlu
+if temperature_unit == "°C":
+    T += 273.15
 
-T = st.number_input("Suhu (T):", min_value=0.0)
-T_unit = st.selectbox("Satuan Suhu:", ["K", "C"])
-
-# Pilihan variabel yang ingin dihitung
-option = st.selectbox("Pilih variabel yang ingin dihitung:", ["P", "V", "n", "T"])
-
-# Menghitung berdasarkan pilihan
+# Tombol untuk menghitung
 if st.button("Hitung"):
-    # Konversi satuan
-    P_converted = convert_pressure(P, P_unit)
-    V_converted = convert_volume(V, V_unit)
-    T_converted = convert_temperature(T, T_unit)
+    if P and V and T:
+        # Konversi tekanan dan volume ke satuan yang sesuai
+        if pressure_unit == "kPa":
+            P_atm = P / 101.325  # konversi kPa ke atm
+        elif pressure_unit == "mmHg":
+            P_atm = P / 760  # konversi mmHg ke atm
+        else:
+            P_atm = P  # sudah dalam atm
 
-    R = 0.082057  # Konstanta gas ideal
+        if volume_unit == "m³":
+            V_L = V * 1000  # konversi m³ ke L
+        else:
+            V_L = V  # sudah dalam L
 
-    if option == "P":
-        result = n * R * T_converted / V_converted
-        st.write(f"Hasil: Tekanan (P) = {result:.2f} atm")
-    elif option == "V":
-        result = n * R * T_converted / P_converted
-        st.write(f"Hasil: Volume (V) = {result:.2f} liter")
-    elif option == "n":
-        result = P_converted * V_converted / (R * T_converted)
-        st.write(f"Hasil: Jumlah zat (n) = {result:.2f} mol")
-    elif option == "T":
-        result = P_converted * V_converted / (n * R)
-        st.write(f"Hasil: Suhu (T) = {result:.2f} K")
+        n = (P_atm * V_L) / (R * T)
+        st.success(f'Jumlah Mol (n) = {n:.2f} mol')
+        
+        # Hasil dalam semua satuan
+        st.write(f"Tekanan dalam atm: {P_atm:.2f} atm")
+        st.write(f"Tekanan dalam kPa: {P * (101.325 / 760):.2f} kPa")
+        st.write(f"Tekanan dalam mmHg: {P * (760 / 760):.2f} mmHg")
+        st.write(f"Volume dalam L: {V_L:.2f} L")
+        st.write(f"Volume dalam m³: {V / 1000:.2f} m³")
+        
+    elif n and V and T:
+        if volume_unit == "m³":
+            V_L = V * 1000  # konversi m³ ke L
+        else:
+            V_L = V  # sudah dalam L
+        P_atm = (n * R * T) / V_L
+        st.success(f'Tekanan (P) = {P_atm:.2f} atm')
+        
+        # Hasil dalam semua satuan
+        st.write(f"Tekanan dalam atm: {P_atm:.2f} atm")
+        st.write(f"Tekanan dalam kPa: {P_atm * 101.325:.2f} kPa")
+        st.write(f"Tekanan dalam mmHg: {P_atm * 760:.2f} mmHg")
+        st.write(f"Volume dalam L: {V_L:.2f} L")
+        st.write(f"Volume dalam m³: {V / 1000:.2f} m³")
+        
+    elif n and P and T:
+        if pressure_unit == "kPa":
+            P_atm = P / 101.325  # konversi kPa ke atm
+        elif pressure_unit == "mmHg":
+            P_atm = P / 760  # konversi mmHg ke atm
+        else:
+            P_atm = P  # sudah dalam atm
+        V_L = (n * R * T) / P_atm
+        st.success(f'Volume (V) = {V_L:.2f} L')
+        
+        # Hasil dalam semua satuan
+        st.write(f"Tekanan dalam atm: {P_atm:.2f} atm")
+        st.write(f"Tekanan dalam kPa: {P * (101.325 / 760):.2f} kPa")
+        st.write(f"Tekanan dalam mmHg: {P * (760 / 760):.2f} mmHg")
+        st.write(f"Volume dalam L: {V_L:.2f} L")
+        st.write(f"Volume dalam m³: {V_L / 1000:.2f} m³")
+        
+    elif n and P and V:
+        T = (P * V_L) / (n * R)
+        if temperature_unit == "°C":
+            T -= 273.15  # konversi Kelvin ke Celsius
+        st.success(f'Suhu (T) = {T:.2f} {temperature_unit}')
+        
+        # Hasil dalam semua satuan
+        st.write(f"Tekanan dalam atm: {P:.2f} atm")
+        st.write(f"Tekanan dalam kPa: {P * (101.325 / 760):.2f} kPa")
+        st.write(f"Tekanan dalam mmHg: {P * (760 / 760):.2f} mmHg")
+        st.write(f"Volume dalam L: {V:.2f} L")
+        st.write(f"Volume dalam m³: {V / 1000:.2f} m³")
+    else:
+        st.error('Silakan masukkan 3 variabel untuk menghitung yang ke-4.')
