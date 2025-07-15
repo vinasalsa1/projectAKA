@@ -103,12 +103,22 @@ def calculate_unknown(P, V, n, T, R):
 
 if st.button("Hitung Variabel"):
     result, var, unit = calculate_unknown(P, V, n, T, R)
-    
+
     if result is not None:
         st.success(f"Nilai {var} = {result:.4f} {unit}")
-        st.latex(f"{var} = \\frac{{{'P × V' if var == 'n' else 'n × R × T'}}}{{{'R × T' if var == 'n' else ('P' if var == 'V' else 'V')}}}")
+        
+        # Menampilkan rumus yang benar untuk T
+        if var == "T":
+            st.latex(r"T = \frac{P \times V}{n \times R} = \frac{" +
+                     f"{P:.4f} \times {V:.4f}}{" +
+                     f"{n:.4f} \times {R:.6f}} = {result:.4f} \text{{ K}}")
+        else:
+            st.latex(f"{var} = \\frac{{{'P \\times V' if var == 'n' else 'n \\times R \\times T'}}}{{{'R \\times T' if var == 'n' else ('
+            
     else:
         st.warning("Masukkan 3 variabel untuk menghitung yang ke-4!")
+
+
 
 # Penjelasan sistem satuan
 with st.expander("📚 Penjelasan Sistem Satuan"):
