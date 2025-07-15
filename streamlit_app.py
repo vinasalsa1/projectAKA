@@ -28,6 +28,13 @@ R_systems = {
     }
 }
 
+ Sidebar Navigation
+with st.sidebar:
+    st.image("https://placehold.co/200x100?text=Gas+Calculator", use_column_width=True)
+    st.title("Menu Navigasi")
+    page = st.radio("Pilih Halaman:", 
+
+
 # Tampilan Streamlit
 st.title("Kalkulator Gas Ideal Cerdas")
 st.subheader("PV = nRT dengan Satuan Terkoordinasi")
