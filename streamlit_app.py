@@ -1,12 +1,5 @@
 import streamlit as st
 
-[theme]
-base="dark"
-primaryColor="forestGreen"
-
-[theme.sidebar]
-primaryColor="darkGoldrod"
-
 # Ubah ke tampilan layar penuh
 st.set_page_config(layout="wide", page_title="Kalkulator Gas Ideal", page_icon="🧪")
 
