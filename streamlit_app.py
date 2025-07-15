@@ -143,7 +143,7 @@ with tab2:
     hukum **Boyle–Mariotte** dan **Gay–Lussac**, membuka peluang baru untuk kajian lebih mendalam dalam sistem tertutup.
     """)
 
-    st.markdown("*Sumber: Nurbury, 2000; Giancoli, 1998 (terjemahan Hanum, 2001)*")
+    st.markdown("*Sumber: SOUISA,M. 2011. Penentuan Jumlah Mol Udara dalam Silinder Bola dengan Menggunakan Hukum Boyle-Meriotte. 5(1). Hal 11-45.*")
 
 
 with tab3:
