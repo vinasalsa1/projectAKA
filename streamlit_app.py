@@ -153,5 +153,7 @@ with st.expander("🧪 Contoh Perhitungan"):
     $$
     """)
 
-with st.sidebar:
-    st.[Gas ]
+# Using object notation
+add_selectbox = st.sidebar.selectbox(
+    "How would you like to be contacted?",
+    ("Email", "Home phone", "Mobile phone")
