@@ -153,5 +153,6 @@ with st.expander("🧪 Contoh Perhitungan"):
     $$
     """)
 
-
+# Object notation
+st.sidebar.[element_name]
   
