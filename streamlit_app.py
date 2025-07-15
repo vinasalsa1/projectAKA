@@ -1,5 +1,87 @@
 import streamlit as st
 
+st.markdown("""
+<style>
+/* === LATAR BELAKANG & TEKS === */
+.stApp {
+    background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);  /* Warna klasik krem */
+    color: #3e2723;  /* Coklat tua klasik */
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    padding: 1rem;
+}
+
+/* === HEADER & TITLE === */
+h1, h2, h3, .stTabs [role="tab"] {
+    color: #4e342e;
+}
+
+/* === TAB STYLE === */
+.stTabs [role="tab"] {
+    background-color: #f3e5ab;
+    border-radius: 8px 8px 0 0;
+    padding: 0.5rem 1.5rem;
+    margin-right: 8px;
+    font-weight: bold;
+    color: #3e2723;
+    border: 1px solid #d7ccc8;
+}
+
+.stTabs [role="tab"][aria-selected="true"] {
+    background-color: #fff8e1;
+    border-bottom: none;
+    border-top: 3px solid #8d6e63;
+}
+
+/* === BUTTON STYLE === */
+button[kind="primary"] {
+    background-color: #a1887f;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+}
+
+button[kind="primary"]:hover {
+    background-color: #8d6e63;
+}
+
+/* === INFO BOX === */
+[data-testid="stInfo"] {
+    background-color: #ffecb3;
+    color: #4e342e;
+    border-left: 5px solid #8d6e63;
+    padding: 1rem;
+}
+
+/* === EXPANDER === */
+.streamlit-expanderHeader {
+    background-color: #f5f5f5;
+    color: #5d4037;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: 1px solid #d7ccc8;
+    border-radius: 4px;
+}
+
+/* === INPUT FIELDS === */
+input, select, textarea {
+    background-color: #fff8e1;
+    border: 1px solid #d7ccc8;
+    border-radius: 6px;
+    padding: 0.4rem;
+}
+
+/* === CONTAINER === */
+.block-container {
+    padding: 2rem 3rem;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 # Ubah ke tampilan layar penuh
 st.set_page_config(layout="wide", page_title="Kalkulator Gas Ideal", page_icon="🧪")
 
