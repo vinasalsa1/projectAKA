@@ -13,7 +13,7 @@ st.markdown("""
 
 /* === HEADER & TITLE === */
 h1, h2, h3, .stTabs [role="tab"] {
-    color: #4e342e;
+    color: #00008B;
 }
 
 /* === TAB STYLE === */
