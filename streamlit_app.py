@@ -89,10 +89,19 @@ st.set_page_config(layout="wide", page_title="Kalkulator Gas Ideal", page_icon="
 tab1, tab2, tab3, tab4 = st.tabs(["🏠 Beranda", "📘 Teori", "🧮 Kalkulator", "ℹ️ About Us"])
 
 with tab1:
-    st.header("🏠 Selamat Datang di Aplikasi Gas Ideal")
+    st.header("IDEAL GAS CALCULATOR")
     st.write("""
-    Aplikasi ini membantu kamu memahami dan menghitung hubungan antara tekanan, volume, suhu, dan jumlah mol menggunakan **persamaan gas ideal**.
-    Silakan navigasi ke tab 'Kalkulator' untuk mulai perhitungan.
+    Selamat datang di aplikasi interaktif perhitungan gas ideal.
+Aplikasi ini dikembangkan untuk membantu Anda memahami konsep dasar termodinamika melalui persamaan gas ideal 
+𝑃
+𝑉
+=
+𝑛
+𝑅
+𝑇
+PV=nRT, yang menggambarkan hubungan antara tekanan, volume, suhu, dan jumlah mol gas.
+Dengan antarmuka yang sederhana dan sistem satuan yang konsisten, Anda dapat melakukan simulasi dan perhitungan ilmiah dengan lebih akurat dan efisien.
+Silakan gunakan tab Kalkulator untuk memulai perhitungan..
     """)
 
 with tab2:
