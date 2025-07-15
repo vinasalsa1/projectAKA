@@ -1,9 +1,5 @@
 import streamlit as st
 
-st.title("Persamaan Gas Ideal Kalkulator")
-
-import streamlit as st
-
 # Konstanta gas ideal dengan satuan yang saling terkait
 R_systems = {
     "Sistem SI": {
