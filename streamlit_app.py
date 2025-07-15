@@ -216,7 +216,6 @@ with tab3:
         )
     
     with col2:
-        st.subheader("Konstanta")
         # Suhu selalu dalam Kelvin
         T = st.number_input(
             "Suhu (T) [K]",
