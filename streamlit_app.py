@@ -4,107 +4,146 @@ st.title("Persamaan Gas Ideal Kalkulator")
 
 import streamlit as st
 
-# Konstanta gas ideal dalam berbagai satuan
-R_values = {
-    "L.atm/(mol.K)": 0.082057,
-    "J/(mol.K)": 8.314,
-    "L.kPa/(mol.K)": 8.314,
-    "L.mmHg/(mol.K)": 62.3636,
-    "L.torr/(mol.K)": 62.3636,  # 1 torr = 1 mmHg
-    "L.psi/(mol.K)": 0.529990  # 1 psi = 0.068046 atm
+# Konstanta gas ideal dengan satuan yang saling terkait
+R_systems = {
+    "Sistem SI": {
+        "R": 8.314,
+        "unit_R": "J/(mol.K)",
+        "tekanan": ("kPa", "Pa"),
+        "volume": ("m³", "dm³"),
+        "default_pressure": 101.325,
+        "default_volume": 0.0224
+    },
+    "Sistem Atmosfer": {
+        "R": 0.082057,
+        "unit_R": "L.atm/(mol.K)",
+        "tekanan": ("atm", "mmHg"),
+        "volume": ("L", "mL"),
+        "default_pressure": 1.0,
+        "default_volume": 22.4
+    },
+    "Sistem Teknis": {
+        "R": 62.3636,
+        "unit_R": "L.mmHg/(mol.K)", 
+        "tekanan": ("mmHg", "torr"),
+        "volume": ("L", "mL"),
+        "default_pressure": 760.0,
+        "default_volume": 22.4
+    }
 }
 
-# Judul aplikasi
-st.title("Kalkulator Gas Ideal - PV=nRT")
+# Tampilan Streamlit
+st.title("Kalkulator Gas Ideal Cerdas")
+st.subheader("PV = nRT dengan Satuan Terkoordinasi")
 
-# Teori Gas Ideal
-st.header("Teori Gas Ideal")
-st.write("""
-Gas ideal adalah gas yang mengikuti hukum gas ideal, yang dinyatakan dengan persamaan:
+# Pilih sistem satuan berdasarkan R
+selected_system = st.selectbox(
+    "Pilih sistem satuan:",
+    options=list(R_systems.keys()),
+    format_func=lambda x: f"{x} (R = {R_systems[x]['R']} {R_systems[x]['unit_R']})"
+)
 
-$$
-PV = nRT
-$$
+# Ambil nilai dari sistem yang dipilih
+system = R_systems[selected_system]
+R = system["R"]
+unit_R = system["unit_R"]
 
-di mana:
-- \( P \) = tekanan gas (dalam satuan yang sesuai)
-- \( V \) = volume gas (dalam satuan yang sesuai)
-- \( n \) = jumlah mol gas
-- \( R \) = konstanta gas ideal (bervariasi tergantung satuan)
-- \( T \) = suhu gas (dalam Kelvin)
-
-Gas nyata, di sisi lain, tidak selalu mengikuti hukum gas ideal, terutama pada tekanan tinggi dan suhu rendah. Interaksi antar molekul dan volume yang ditempati oleh molekul gas itu sendiri menjadi faktor yang mempengaruhi perilaku gas nyata. Persamaan Van der Waals adalah salah satu model yang digunakan untuk menggambarkan gas nyata.
+# Tampilkan nilai R yang dipilih
+st.info(f"""
+*Konstanta gas yang dipilih:*
+- R = {R} {unit_R}
+- Sistem: {selected_system}
 """)
 
-# Pilih satuan R
-R_unit = st.selectbox("Pilih satuan R:", list(R_values.keys()))
-R = R_values[R_unit]
+# Input variabel dengan satuan yang konsisten
+col1, col2 = st.columns(2)
 
-# Input dari pengguna
-st.header("Masukkan nilai yang diketahui:")
-pressure_unit = st.selectbox("Pilih satuan tekanan:", ["atm", "kPa", "mmHg", "torr", "psi"])
-P = st.number_input(f"Tekanan ({pressure_unit})", min_value=0.0, format="%.2f", step=0.01)
+with col1:
+    st.subheader("Variabel Gas")
+    # Tekanan mengikuti sistem
+    P = st.number_input(
+        f"Tekanan (P) [{system['tekanan'][0]}]",
+        value=system["default_pressure"],
+        step=0.01
+    )
+    
+    # Volume mengikuti sistem
+    V = st.number_input(
+        f"Volume (V) [{system['volume'][0]}]",
+        value=system["default_volume"],
+        step=0.01
+    )
 
-volume_unit = st.selectbox("Pilih satuan volume:", ["L", "m³", "cm³", "mL", "ft³", "in³"])
-V = st.number_input(f"Volume ({volume_unit})", min_value=0.0, format="%.2f", step=0.01)
+with col2:
+    st.subheader("Konstanta")
+    # Suhu selalu dalam Kelvin
+    T = st.number_input(
+        "Suhu (T) [K]",
+        value=273.15,
+        step=0.1
+    )
+    
+    # Jumlah mol
+    n = st.number_input(
+        "Jumlah mol (n) [mol]",
+        value=1.0,
+        step=0.01
+    )
 
-n = st.number_input("Jumlah Mol (mol)", min_value=0.0, format="%.2f", step=0.01)
+# Hitung variabel yang belum diketahui
+def calculate_unknown(P, V, n, T, R):
+    if P and V and T and not n:
+        return (P * V) / (R * T), "n", "mol"
+    elif P and n and T and not V:
+        return (n * R * T) / P, "V", system['volume'][0]
+    elif V and n and T and not P:
+        return (n * R * T) / V, "P", system['tekanan'][0]
+    elif P and V and n and not T:
+        return (P * V) / (n * R), "T", "K"
+    return None, None, None
 
-temperature_unit = st.selectbox("Pilih satuan suhu:", ["K", "°C", "°F", "R"])
-T = st.number_input(f"Suhu ({temperature_unit})", min_value=0.0, format="%.2f", step=0.01)
-
-# Konversi suhu dari Celsius ke Kelvin jika perlu
-if temperature_unit == "°C":
-    T += 273.15
-elif temperature_unit == "°F":
-    T = (T - 32) * 5/9 + 273.15  # Konversi Fahrenheit ke Kelvin
-elif temperature_unit == "R":
-    T = T * 5/9  # Konversi Rankine ke Kelvin
-
-# Tombol untuk menghitung
-if st.button("Hitung"):
-    if P and V and T:
-        # Konversi tekanan dan volume ke satuan yang sesuai
-        if pressure_unit == "kPa":
-            P = P / 101.325  # konversi kPa ke atm
-        elif pressure_unit == "mmHg":
-            P = P / 760  # konversi mmHg ke atm
-        elif pressure_unit == "torr":
-            P = P / 760  # konversi torr ke atm
-        elif pressure_unit == "psi":
-            P = P * 0.068046  # konversi psi ke atm
-
-        if volume_unit == "m³":
-            V = V * 1000  # konversi m³ ke L
-        elif volume_unit == "cm³":
-            V = V / 1000  # konversi cm³ ke L
-        elif volume_unit == "mL":
-            V = V / 1000  # konversi mL ke L
-        elif volume_unit == "ft³":
-            V = V * 28.3168  # konversi ft³ ke L
-        elif volume_unit == "in³":
-            V = V * 0.0163871  # konversi in³ ke L
-
-        n = (P * V) / (R * T)
-        st.success(f'Jumlah Mol (n) = {n:.2f} mol')
-    elif n and V and T:
-        if volume_unit == "m³":
-            V = V * 1000  # konversi m³ ke L
-        P = (n * R * T) / V
-        st.success(f'Tekanan (P) = {P:.2f} {pressure_unit}')
-    elif n and P and T:
-        if pressure_unit == "kPa":
-            P = P / 101.325  # konversi kPa ke atm
-        V = (n * R * T) / P
-        st.success(f'Volume (V) = {V:.2f} {volume_unit}')
-    elif n and P and V:
-        T = (P * V) / (n * R)
-        if temperature_unit == "°C":
-            T -= 273.15  # konversi Kelvin ke Celsius
-        elif temperature_unit == "°F":
-            T = (T - 273.15) * 9/5 + 32  # konversi Kelvin ke Fahrenheit
-        elif temperature_unit == "R":
-            T = T * 9/5  # konversi Kelvin ke Rankine
-        st.success(f'Suhu (T) = {T:.2f} {temperature_unit}')
+if st.button("Hitung Variabel"):
+    result, var, unit = calculate_unknown(P, V, n, T, R)
+    
+    if result is not None:
+        st.success(f"Nilai {var} = {result:.4f} {unit}")
+        st.latex(f"{var} = \\frac{{{'P × V' if var == 'n' else 'n × R × T'}}}{{{'R × T' if var == 'n' else ('P' if var == 'V' else 'V')}}}")
     else:
-        st.error('Silakan masukkan 3 variabel untuk menghitung yang ke-4.')
+        st.warning("Masukkan 3 variabel untuk menghitung yang ke-4!")
+
+# Penjelasan sistem satuan
+with st.expander("📚 Penjelasan Sistem Satuan"):
+    st.markdown("""
+    *Koordinasi Satuan Otomatis:*
+    - Sistem *SI*:
+      - R = 8.314 J/(mol·K)
+      - Tekanan: kPa atau Pa
+      - Volume: m³ atau dm³
+    
+    - Sistem *Atmosfer*:
+      - R = 0.082057 L·atm/(mol·K)
+      - Tekanan: atm atau mmHg 
+      - Volume: L atau mL
+    
+    - Sistem *Teknis*:
+      - R = 62.3636 L·mmHg/(mol·K)
+      - Tekanan: mmHg atau torr
+      - Volume: L atau mL
+    """)
+    st.markdown("""
+    *Konsistensi Satuan:*
+    Aplikasi ini secara otomatis menyesuaikan satuan tekanan dan volume 
+    agar konsisten dengan satuan R yang dipilih, sehingga menghindari 
+    kesalahan konversi satuan.
+    """)
+
+# Tambahkan contoh perhitungan
+with st.expander("🧪 Contoh Perhitungan"):
+    st.markdown("""
+    *Contoh 1:*
+    - Sistem: SI (R = 8.314 J/(mol·K))
+    - P = 101.325 kPa
+    - V = 0.0224 m³
+    - T = 273.15 K
+    - Maka n = (101.325 × 0.0224) / (8.314 × 273.15) ≈ 1 mol
+    """)
