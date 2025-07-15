@@ -90,7 +90,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏠 Beranda", "📘 Teori", "🧮 Kalkulator
 
 with tab1:
     st.header("IDEAL GAS CALCULATOR")
-        st.subheader("""
+        st.subheader("
         ^
     Selamat datang di aplikasi interaktif perhitungan gas ideal.
 Aplikasi ini dikembangkan untuk membantu Anda memahami konsep dasar termodinamika melalui persamaan gas ideal 
@@ -98,7 +98,7 @@ Aplikasi ini dikembangkan untuk membantu Anda memahami konsep dasar termodinamik
 PV=nRT, yang menggambarkan hubungan antara tekanan, volume, suhu, dan jumlah mol gas.
 Dengan antarmuka yang sederhana dan sistem satuan yang konsisten, Anda dapat melakukan simulasi dan perhitungan ilmiah dengan lebih akurat dan efisien.
 Silakan gunakan tab Kalkulator untuk memulai perhitungan..
-    """)
+    ")
 
 with tab2:
     st.header("Teori Gas Ideal")
