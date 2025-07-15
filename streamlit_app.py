@@ -109,7 +109,7 @@ if st.button("Hitung Variabel"):
         st.success(f"Nilai {var} = {result:.4f} {unit}")
         
         # Menampilkan rumus yang benar untuk setiap variabel
-        if var == "n":
+    if var == "n":
     st.latex(f"n = \\frac{{P \\times V}}{{R \\times T}} = \\frac{{{P:.2f} \\times {V:.2f}}}{{{R:.5f} \\times {T:.2f}}} = {result:.2f}\\ \\text{{mol}}")
 elif var == "V":
     st.latex(f"V = \\frac{{n \\times R \\times T}}{{P}} = \\frac{{{n:.2f} \\times {R:.5f} \\times {T:.2f}}}{{{P:.2f}}} = {result:.2f}\\ \\text{{{unit}}}")
