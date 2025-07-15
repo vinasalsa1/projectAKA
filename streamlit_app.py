@@ -90,7 +90,8 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏠 Beranda", "📘 Teori", "🧮 Kalkulator
 
 with tab1:
     st.header("IDEAL GAS CALCULATOR")
-        st.write("""
+        st.subheader("""
+        ^
     Selamat datang di aplikasi interaktif perhitungan gas ideal.
 Aplikasi ini dikembangkan untuk membantu Anda memahami konsep dasar termodinamika melalui persamaan gas ideal 
 
