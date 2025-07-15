@@ -18,19 +18,20 @@ h1, h2, h3, .stTabs [role="tab"] {
 
 /* === TAB STYLE === */
 .stTabs [role="tab"] {
-    background-color: #f3e5ab;
+    background-color: #1e3a8a;  /* dark blue (tidak aktif) */
     border-radius: 8px 8px 0 0;
     padding: 0.5rem 1.5rem;
     margin-right: 8px;
     font-weight: bold;
-    color: #3e2723;
-    border: 1px solid #d7ccc8;
+    color: white;
+    border: 1px solid #0a1f44;
+    transition: all 0.3s ease-in-out;
 }
 
 .stTabs [role="tab"][aria-selected="true"] {
-    background-color: #fff8e1;
-    border-bottom: none;
-    border-top: 3px solid #8d6e63;
+    background-color: #172554;  /* lebih gelap saat aktif */
+    color: #ffffff;
+    border-bottom: 3px solid #60a5fa;
 }
 
 /* === BUTTON STYLE === */
