@@ -109,9 +109,7 @@ if st.button("Hitung Variabel"):
         
         # Menampilkan rumus yang benar untuk T
         if var == "T":
-            st.latex(r"T = \frac{P \times V}{n \times R} = \frac{" +
-                     f"{P:.4f} \times {V:.4f}}{" +
-                     f"{n:.4f} \times {R:.6f}} = {result:.4f} \text{{ K}}")
+            st.latex(r"T = \frac{P \times V}{n \times R} = \frac{" + f"{P:.4f} \times {V:.4f}}{" + f"{n:.4f} \times {R:.6f}} = {result:.4f} \text{{ K}}")
     else:
         st.warning("Masukkan 3 variabel untuk menghitung yang ke-4!")
 
