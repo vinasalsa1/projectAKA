@@ -1,5 +1,8 @@
 import streamlit as st
 
+# Ubah ke tampilan layar penuh
+st.set_page_config(layout="wide", page_title="Kalkulator Gas Ideal", page_icon="🧪")
+
 tab1, tab2, tab3, tab4 = st.tabs(["🏠 Beranda", "📘 Teori", "🧮 Kalkulator", "ℹ️ About Us"])
 
 with tab1:
