@@ -121,24 +121,21 @@ if st.button("Hitung Variabel"):
         st.warning("Masukkan 3 variabel untuk menghitung yang ke-4!")
 
 # Penjelasan sistem satuan
-with st.expander("📚 Penjelasan Sistem Satuan"):
+with st.expander("📚 Teori Dasar"):
     st.markdown("""
-    *Koordinasi Satuan Otomatis:*
-    - Sistem *SI*:
-      - R = 8.314 J/(mol·K)
-      - Tekanan: kPa atau Pa
-      - Volume: m³ atau dm³
+    *Persamaan Gas Ideal:*
+      $$
+    PV = nRT
+    $$
     
-    - Sistem *Atmosfer*:
-      - R = 0.082057 L·atm/(mol·K)
-      - Tekanan: atm atau mmHg 
-      - Volume: L atau mL
-    
-    - Sistem *Teknis*:
-      - R = 62.3636 L·mmHg/(mol·K)
-      - Tekanan: mmHg atau torr
-      - Volume: L atau mL
+    Dimana:
+    - $P$ = Tekanan gas
+    - $V$ = Volume gas
+    - $n$ = Jumlah mol gas
+    - $R$ = Konstanta gas ideal
+    - $T$ = Suhu mutlak (Kelvin)
     """)
+
     st.markdown("""
     *Konsistensi Satuan:*
     Aplikasi ini secara otomatis menyesuaikan satuan tekanan dan volume 
