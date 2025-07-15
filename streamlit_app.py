@@ -154,4 +154,4 @@ with st.expander("🧪 Contoh Perhitungan"):
     """)
 
 with st.sidebar:
-    st.[element_name]
+    st.[Gas ]
