@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Sidebar navigasi
-menu = st.sidebar.radio("Navigasi", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"])
+menu = st.sidebar.tabs("Menu", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"])
 
 # Halaman BERANDA
 if menu == "Beranda":
