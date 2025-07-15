@@ -143,6 +143,8 @@ with tab2:
     hukum **Boyle–Mariotte** dan **Gay–Lussac**, membuka peluang baru untuk kajian lebih mendalam dalam sistem tertutup.
     """)
 
+    st.markdown("*Sumber: Nurbury, 2000; Giancoli, 1998 (terjemahan Hanum, 2001)*")
+
 
 with tab3:
     # Konstanta gas ideal dengan satuan yang saling terkait
