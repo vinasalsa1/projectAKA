@@ -1,45 +1,22 @@
 import streamlit as st
 
-# Sidebar navigasi
-menu = st.selectbox("📌 Pilih Halaman:", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"])
+tab1, tab2, tab3, tab4 = st.tabs(["🏠 Beranda", "📘 Teori", "🧮 Kalkulator", "ℹ️ About Us"])
 
-# Halaman BERANDA
-if menu == "Beranda":
-    st.title("Selamat Datang di Aplikasi Gas Ideal")
-    st.markdown("""
-    Aplikasi ini dirancang untuk membantu kamu memahami dan menghitung hubungan antar variabel 
-    dalam **persamaan gas ideal PV = nRT**.
+with tab1:
+    st.header("Selamat Datang di Aplikasi Gas Ideal")
+    # konten Beranda
 
-    📌 Gunakan menu di sebelah kiri untuk:
-    - Mempelajari teori dasar gas ideal
-    - Menghitung variabel seperti P, V, n, atau T
-    - Mengenal lebih lanjut tentang aplikasi ini
-    """)
+with tab2:
+    st.header("Teori Gas Ideal")
+    # konten Teori
 
-# Halaman TEORI GAS IDEAL
-elif menu == "Teori Gas Ideal":
-    st.title("📚 Teori Gas Ideal")
-    st.markdown("""
-    ### Persamaan Umum Gas Ideal
-    $$
-    PV = nRT
-    $$
-    - $P$ = Tekanan gas  
-    - $V$ = Volume gas  
-    - $n$ = Jumlah mol  
-    - $R$ = Konstanta gas  
-    - $T$ = Suhu mutlak (Kelvin)  
+with tab3:
+    st.header("Kalkulator Gas Ideal")
+    # kalkulator kamu dipindahkan ke sini
 
-    ### Asumsi Gas Ideal:
-    - Molekul gas tidak memiliki volume
-    - Tidak ada gaya tarik antar molekul
-    - Tumbukan antar molekul bersifat elastis sempurna
-    """)
-
-# Halaman KALKULATOR
-elif menu == "Kalkulator Gas Ideal":
-    st.title("🧮 Kalkulator Gas Ideal Cerdas")
-    st.subheader("PV = nRT dengan Satuan Terkoordinasi")
+with tab4:
+    st.header("Tentang Kami")
+    # konten about
 
 # Konstanta gas ideal dengan satuan yang saling terkait
 R_systems = {
