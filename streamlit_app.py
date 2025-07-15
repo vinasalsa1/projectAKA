@@ -31,7 +31,7 @@ R_systems = {
 with st.sidebar:
     st.image("https://placehold.co/200x100?text=Gas+Calculator", use_column_width=True)
     st.title("Menu Navigasi")
-    page = st.radio("Pilih Halaman:", 
+    page = st.radio("Pilih Halaman:", )
 
 
 # Tampilan Streamlit
