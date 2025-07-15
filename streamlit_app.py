@@ -1,9 +1,8 @@
 import streamlit as st
 
 # Sidebar navigasi
-with st.sidebar:
-    with st.echo("Menu", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"]"):
-                 
+menu = st.selectbox("📌 Pilih Halaman:", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"])
+
 # Halaman BERANDA
 if menu == "Beranda":
     st.title("Selamat Datang di Aplikasi Gas Ideal")
