@@ -109,8 +109,40 @@ with tab1:
 
 
 with tab2:
-    st.header("Teori Gas Ideal")
-    # konten Teori
+    st.header("📘 Teori Gas Ideal")
+
+    st.write("""
+    **Termodinamika** adalah cabang ilmu fisika yang mempelajari hubungan antara energi, panas, dan kerja dalam suatu sistem. 
+    Ilmu ini berfokus pada sifat-sifat makroskopik zat, seperti suhu, tekanan, dan volume, yang dapat diukur secara langsung.
+    Salah satu konsep dasar dalam termodinamika adalah **persamaan keadaan**, yang menjelaskan hubungan antara sifat-sifat 
+    tersebut dalam bentuk matematis.
+
+    Salah satu persamaan keadaan yang paling sederhana dan paling umum digunakan adalah **persamaan gas ideal**:
+    """)
+
+    st.latex("PV = nRT")
+
+    st.write("""
+    Menurut Nurbury (2000:226), gas dikatakan **ideal** jika gaya tarik-menarik antar molekulnya dapat diabaikan. 
+    Dalam praktiknya, pendekatan gas ideal sangat berguna untuk memodelkan perilaku gas di berbagai kondisi.
+
+    Untuk memahami perilaku gas, perlu diketahui hubungan antara **massa gas**, **volume**, dan **jumlah mol**. 
+    Jumlah mol ($n$) adalah perbandingan antara massa total gas dengan massa molekul relatif gas tersebut.
+    
+    Misalnya, saat udara dipompa ke dalam balon atau alat suntik (*syringe*), semakin banyak gas yang dimasukkan, 
+    semakin besar volumenya (dengan asumsi suhu dan tekanan tetap). Hubungan ini bersifat **linier**, 
+    dan dapat dijelaskan dengan memasukkan **konstanta gas** dan menyusun hubungan menjadi:
+    
+    $$ PV = nRT $$
+
+    Jika tekanan ($P$), suhu ($T$), dan volume ($V$) diketahui, maka jumlah mol gas dapat dihitung. 
+    Hal ini penting, terutama dalam eksperimen-eksperimen yang melibatkan wadah tertutup seperti tabung suntik atau bola udara.
+
+    Penelitian sebelumnya telah banyak membahas hubungan dasar ini, namun pengembangan lebih lanjut mengenai 
+    **jumlah mol dalam sistem volume tetap atau suhu tetap** menggunakan **persamaan gas ideal**, serta 
+    hukum **Boyle–Mariotte** dan **Gay–Lussac**, membuka peluang baru untuk kajian lebih mendalam dalam sistem tertutup.
+    """)
+
 
 with tab3:
     st.header("Kalkulator Gas Ideal")
