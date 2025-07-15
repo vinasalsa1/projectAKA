@@ -100,7 +100,6 @@ def calculate_unknown(P, V, n, T, R):
         return (n * R * T) / V, "P", system['tekanan'][0]
     elif P and V and n and not T:
         return (P * V) / (n * R), "T", "K"
-    return None, None, None
 
 if st.button("Hitung Variabel"):
     result, var, unit = calculate_unknown(P, V, n, T, R)
