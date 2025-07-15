@@ -110,14 +110,13 @@ if st.button("Hitung Variabel"):
         
         # Menampilkan rumus yang benar untuk setiap variabel
     if var == "n":
-    st.latex(f"n = \\frac{{P \\times V}}{{R \\times T}} = \\frac{{{P:.2f} \\times {V:.2f}}}{{{R:.5f} \\times {T:.2f}}} = {result:.2f}\\ \\text{{mol}}")
-elif var == "V":
-    st.latex(f"V = \\frac{{n \\times R \\times T}}{{P}} = \\frac{{{n:.2f} \\times {R:.5f} \\times {T:.2f}}}{{{P:.2f}}} = {result:.2f}\\ \\text{{{unit}}}")
-elif var == "P":
-    st.latex(f"P = \\frac{{n \\times R \\times T}}{{V}} = \\frac{{{n:.2f} \\times {R:.5f} \\times {T:.2f}}}{{{V:.2f}}} = {result:.2f}\\ \\text{{{unit}}}")
-elif var == "T":
-    st.latex(f"T = \\frac{{P \\times V}}{{n \\times R}} = \\frac{{{P:.2f} \\times {V:.2f}}}{{{n:.2f} \\times {R:.5f}}} = {result:.2f}\\ \\text{{K}}")
-
+         st.latex(f"n = \\frac{{P \\times V}}{{R \\times T}} = \\frac{{{P:.2f} \\times {V:.2f}}}{{{R:.5f} \\times {T:.2f}}} = {result:.2f}\\ \\text{{mol}}")
+    elif var == "V":
+        st.latex(f"V = \\frac{{n \\times R \\times T}}{{P}} = \\frac{{{n:.2f} \\times {R:.5f} \\times {T:.2f}}}{{{P:.2f}}} = {result:.2f}\\ \\text{{{unit}}}")
+    elif var == "P":
+            st.latex(f"P = \\frac{{n \\times R \\times T}}{{V}} = \\frac{{{n:.2f} \\times {R:.5f} \\times {T:.2f}}}{{{V:.2f}}} = {result:.2f}\\ \\text{{{unit}}}")
+    elif var == "T":
+         st.latex(f"T = \\frac{{P \\times V}}{{n \\times R}} = \\frac{{{P:.2f} \\times {V:.2f}}}{{{n:.2f} \\times {R:.5f}}} = {result:.2f}\\ \\text{{K}}")
     else:
         st.warning("Masukkan 3 variabel untuk menghitung yang ke-4!")
 
