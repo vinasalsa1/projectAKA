@@ -15,8 +15,7 @@ with tab2:
 
 with tab3:
     st.header("Kalkulator Gas Ideal")
-    # kalkulator kamu dipindahkan ke sini
-# Konstanta gas ideal dengan satuan yang saling terkait
+    # Konstanta gas ideal dengan satuan yang saling terkait
 R_systems = {
     "Sistem SI": {
         "R": 8.314,
@@ -168,6 +167,7 @@ with st.expander("🧪 Contoh Perhitungan"):
     T = \\frac{P \\times V}{n \\times R} = \\frac{1 \\times 22.4}{1 \\times 0.082057} = 273.15 \\text{ K}
     $$
     """)
+
 
 
 with tab4:
