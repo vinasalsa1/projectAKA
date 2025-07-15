@@ -145,7 +145,6 @@ with tab2:
 
 
 with tab3:
-    st.header("Kalkulator Gas Ideal")
     # Konstanta gas ideal dengan satuan yang saling terkait
     R_systems = {
     "Sistem SI": {
