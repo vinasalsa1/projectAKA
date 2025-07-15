@@ -4,7 +4,7 @@ st.title("Persamaan Gas Ideal Kalkulator")
 
 import streamlit as st
 
-# Konstanta gas ideal dengan sistem satuan terintegrasi
+# Konstanta gas ideal dengan satuan yang saling terkait
 R_systems = {
     "Sistem SI": {
         "R": 8.314,
@@ -12,17 +12,15 @@ R_systems = {
         "tekanan": ("kPa", "Pa"),
         "volume": ("m³", "dm³"),
         "default_pressure": 101.325,
-        "default_volume": 0.0224,
-        "teori": "Digunakan dalam perhitungan ilmiah, dengan satuan tekanan kPa dan volume m³"
+        "default_volume": 0.0224
     },
     "Sistem Atmosfer": {
         "R": 0.082057,
         "unit_R": "L.atm/(mol.K)",
-        "tekanan": ("atm", "mmHg"),
+        "tekanan": ("atm", "mmHg"), 
         "volume": ("L", "mL"),
         "default_pressure": 1.0,
-        "default_volume": 22.4,
-        "teori": "Umum digunakan dalam kimia, dengan satuan tekanan atm dan volume liter"
+        "default_volume": 22.4
     },
     "Sistem Teknis": {
         "R": 62.3636,
@@ -30,151 +28,103 @@ R_systems = {
         "tekanan": ("mmHg", "torr"),
         "volume": ("L", "mL"),
         "default_pressure": 760.0,
-        "default_volume": 22.4,
-        "teori": "Digunakan dalam aplikasi medis/laboratorium, dengan satuan mmHg"
+        "default_volume": 22.4
     }
 }
 
-# ========== SETUP TAMPILAN ==========
-st.set_page_config(
-    page_title="Kalkulator Gas Ideal | PV=nRT",
-    page_icon="🧪",
-    layout="centered"
-)
+# Tampilan Streamlit
+st.title("🧪 Kalkulator Gas Ideal Cerdas")
+st.subheader("PV = nRT dengan Satuan Terkoordinasi")
 
-# Header aplikasi
-st.title("🧪 Kalkulator Gas Ideal")
-st.subheader("PV = nRT dengan Konsistensi Satuan Otomatis")
-
-# ========== BAGIAN INPUT ==========
-st.header("📥 Masukkan Data")
-
-# Pilih sistem satuan
+# Pilih sistem satuan berdasarkan R
 selected_system = st.selectbox(
     "Pilih sistem satuan:",
     options=list(R_systems.keys()),
-    format_func=lambda x: f"{x} (R = {R_systems[x]['R']} {R_systems[x]['unit_R']})",
-    help="Pilih sistem satuan yang sesuai dengan konteks perhitungan"
+    format_func=lambda x: f"{x} (R = {R_systems[x]['R']} {R_systems[x]['unit_R']})"
 )
 
+# Ambil nilai dari sistem yang dipilih
 system = R_systems[selected_system]
+R = system["R"]
+unit_R = system["unit_R"]
 
-# Tampilkan info sistem
+# Tampilkan nilai R yang dipilih
 st.info(f"""
-*Sistem yang dipilih:* {selected_system}  
-*Konstanta gas (R):* {system['R']} {system['unit_R']}  
-*Keterangan:* {system['teori']}
+*Konstanta gas yang dipilih:*
+- R = {R} {unit_R}
+- Sistem: {selected_system}
 """)
 
 # Input variabel
 col1, col2 = st.columns(2)
 
 with col1:
+    st.subheader("Variabel Gas")
     P = st.number_input(
-        f"Tekanan (P) [{system['tekanan'][0]}]", 
+        f"Tekanan (P) [{system['tekanan'][0]}]",
         value=system["default_pressure"],
-        min_value=0.0,
         step=0.01
     )
-    
     V = st.number_input(
-        f"Volume (V) [{system['volume'][0]}]",
+        f"Volume (V) [{system['volume'][0]}]", 
         value=system["default_volume"],
-        min_value=0.0,
         step=0.01
     )
 
 with col2:
-    T = st.number_input(
-        "Suhu (T) [K]",
-        value=273.15,
-        min_value=0.0,
-        step=0.1
-    )
-    
-    n = st.number_input(
-        "Jumlah mol (n) [mol]",
-        value=1.0,
-        min_value=0.0,
-        step=0.01
-    )
+    st.subheader("Konstanta")
+    T = st.number_input("Suhu (T) [K]", value=273.15, step=0.1)
+    n = st.number_input("Jumlah mol (n) [mol]", value=1.0, step=0.01)
 
-# ========== PROSES PERHITUNGAN ==========
+# Fungsi perhitungan
 def calculate_unknown(P, V, n, T, R):
-    variables = [P, V, n, T]
-    known_count = sum(1 for var in variables if var is not None and var > 0)
-    
-    if known_count == 3:
-        if not n or n == 0:  # Hitung mol
-            result = (P * V) / (R * T)
-            formula = r"n = \frac{P \times V}{R \times T}"
-            calculation = f"\frac{{{P:.4f} \times {V:.4f}}}{{{R:.6f} \times {T:.2f}}}"
-            unit = "mol"
-            return result, "n", unit, formula, calculation
-        
-        elif not P or P == 0:  # Hitung tekanan
-            result = (n * R * T) / V
-            formula = r"P = \frac{n \times R \times T}{V}"
-            calculation = f"\frac{{{n:.4f} \times {R:.6f} \times {T:.2f}}}{{{V:.4f}}}"
-            unit = system['tekanan'][0]
-            return result, "P", unit, formula, calculation
-        
-        elif not V or V == 0:  # Hitung volume
-            result = (n * R * T) / P
-            formula = r"V = \frac{n \times R \times T}{P}"
-            calculation = f"\frac{{{n:.4f} \times {R:.6f} \times {T:.2f}}}{{{P:.4f}}}"
-            unit = system['volume'][0]
-            return result, "V", unit, formula, calculation
-        
-        elif not T or T == 0:  # Hitung suhu
-            result = (P * V) / (n * R)
-            formula = r"T = \frac{P \times V}{n \times R}"
-            calculation = f"\frac{{{P:.4f} \times {V:.4f}}}{{{n:.4f} \times {R:.6f}}}"
-            unit = "K"
-            return result, "T", unit, formula, calculation
-    
-    return None, None, None, None, None
+    if P and V and T and not n:
+        return (P * V) / (R * T), "n", "mol"
+    elif P and n and T and not V:
+        return (n * R * T) / P, "V", system['volume'][0]
+    elif V and n and T and not P:
+        return (n * R * T) / V, "P", system['tekanan'][0] 
+    elif P and V and n and not T:
+        return (P * V) / (n * R), "T", "K"
+    return None, None, None
 
-# ========== BAGIAN OUTPUT ==========
+# Tombol hitung dan tampilan hasil
 if st.button("🔄 Hitung", type="primary"):
     st.header("📊 Hasil Perhitungan")
     
-    result, var, unit, formula, calculation = calculate_unknown(P, V, n, T, system["R"])
+    result, var, unit = calculate_unknown(P, V, n, T, R)
     
     if result is not None:
-        # Tampilkan box hasil utama
         st.success(f"*Nilai {var} = {result:.4f} {unit}*")
         
-        # Tampilkan langkah perhitungan detail
-        with st.expander("🧮 Detail Perhitungan", expanded=True):
-            st.latex(f"{formula} = {calculation} = {result:.4f} \\text{{ {unit} }}")
+        with st.expander("🧮 Langkah Perhitungan", expanded=True):
+            if var == "n":
+                st.latex(r"n = \frac{P \times V}{R \times T} = \frac{" +
+                         f"{P:.4f} \times {V:.4f}}{" +
+                         f"{R:.6f} \times {T:.2f}}} = {result:.4f} \text{{ mol}}")
+            
+            elif var == "V":
+                st.latex(r"V = \frac{n \times R \times T}{P} = \frac{" +
+                         f"{n:.4f} \times {R:.6f} \times {T:.2f}}{" +
+                         f"{P:.4f}}} = {result:.4f} \text{{ {unit}}}")
+            
+            elif var == "P":
+                st.latex(r"P = \frac{n \times R \times T}{V} = \frac{" +
+                         f"{n:.4f} \times {R:.6f} \times {T:.2f}}{" +
+                         f"{V:.4f}}} = {result:.4f} \text{{ {unit}}}")
+                         
+            elif var == "T":
+                st.latex(r"T = \frac{P \times V}{n \times R} = \frac{" +
+                         f"{P:.4f} \times {V:.4f}}{" +
+                         f"{n:.4f} \times {R:.6f}}} = {result:.4f} \text{{ K}}")
             
             st.markdown("*Penjelasan:*")
-            if var == "n":
-                st.write("""
-                Jumlah mol gas dihitung dengan membagi hasil perkalian tekanan dan volume 
-                dengan hasil perkalian konstanta gas dan suhu mutlak.
-                """)
-            elif var == "P":
-                st.write("""
-                Tekanan gas dihitung dengan membagi hasil perkalian jumlah mol, konstanta gas, 
-                dan suhu mutlak dengan volume.
-                """)
-            elif var == "V":
-                st.write("""
-                Volume gas dihitung dengan membagi hasil perkalian jumlah mol, konstanta gas, 
-                dan suhu mutlak dengan tekanan.
-                """)
-            elif var == "T":
-                st.write("""
-                Suhu mutlak dihitung dengan membagi hasil perkalian tekanan dan volume 
-                dengan hasil perkalian jumlah mol dan konstanta gas.
-                """)
+            st.write(f"Variabel {var} dihitung menggunakan rumus dasar gas ideal PV = nRT")
     else:
-        st.error("Masukkan 3 variabel yang diketahui untuk menghitung variabel ke-4!")
+        st.error("Harap masukkan 3 variabel untuk menghitung variabel ke-4!")
 
-# ========== BAGIAN TEORI ==========
-with st.expander("📚 Teori Dasar", expanded=False):
+# Teori dan contoh
+with st.expander("📚 Teori Dasar"):
     st.markdown("""
     ### *Persamaan Gas Ideal*
     $$
@@ -187,33 +137,17 @@ with st.expander("📚 Teori Dasar", expanded=False):
     - $n$ = Jumlah mol gas
     - $R$ = Konstanta gas ideal
     - $T$ = Suhu mutlak (Kelvin)
-    
-    ### *Konversi Satuan Penting*
-    - 1 atm = 101.325 kPa = 760 mmHg
-    - 1 m³ = 1000 L
-    - 0°C = 273.15 K
-    
-    Aplikasi ini secara otomatis menyesuaikan satuan berdasarkan sistem yang dipilih 
-    untuk memastikan konsistensi dimensional dalam perhitungan.
     """)
 
-with st.expander("🧪 Contoh Praktis", expanded=False):
+with st.expander("🧪 Contoh Praktis"):
     st.markdown("""
-    *Contoh 1 - Menghitung Mol Gas:*
+    *Contoh Perhitungan Suhu:*
     - Tekanan = 1 atm
     - Volume = 22.4 L
-    - Suhu = 273.15 K
+    - Mol = 1 mol
     - R = 0.082057 L·atm/(mol·K)
-    - Mol = (1 × 22.4) / (0.082057 × 273.15) ≈ 1 mol
-    
-    *Contoh 2 - Menghitung Tekanan:*
-    - Mol = 2 mol
-    - Volume = 10 L
-    - Suhu = 300 K
-    - R = 0.082057 L·atm/(mol·K)
-    - Tekanan = (2 × 0.082057 × 300) / 10 ≈ 4.923 atm
+    - Suhu:
+    $$
+    T = \frac{1 \times 22.4}{1 \times 0.082057} = 273.15 \text{ K}
+    $$
     """)
-
-# Catatan kaki
-st.markdown("---")
-st.caption("Aplikasi Kalkulator Gas Ideal © 2023 | Konsistensi satuan otomatis untuk hasil akurat")
