@@ -1,7 +1,9 @@
 import streamlit as st
 
 # Sidebar navigasi
-menu = st.echo("Menu", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"])
+with st.sidebar:
+    with st.echo():
+        st.write(""Menu", ["Beranda", "Teori Gas Ideal", "Kalkulator Gas Ideal", "About Us"]")
 
 # Halaman BERANDA
 if menu == "Beranda":
