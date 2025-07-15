@@ -112,9 +112,6 @@ if st.button("Hitung Variabel"):
             st.latex(r"T = \frac{P \times V}{n \times R} = \frac{" +
                      f"{P:.4f} \times {V:.4f}}{" +
                      f"{n:.4f} \times {R:.6f}} = {result:.4f} \text{{ K}}")
-        else:
-            st.latex(f"{var} = \\frac{{{'P \\times V' if var == 'n' else 'n \\times R \\times T'}}}{{{'R \\times T' if var == 'n' else ('
-            
     else:
         st.warning("Masukkan 3 variabel untuk menghitung yang ke-4!")
 
