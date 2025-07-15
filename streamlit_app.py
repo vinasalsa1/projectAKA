@@ -159,6 +159,4 @@ add_selectbox = st.sidebar.selectbox(
     ("Email", "Home phone", "Mobile phone")
 )
 
-# Using "with" notation
-with st.sidebar:
   
