@@ -27,8 +27,7 @@ R_systems = {
         "default_volume": 22.4
     }
 }
-
- Sidebar Navigation
+#Sidebar Navigation
 with st.sidebar:
     st.image("https://placehold.co/200x100?text=Gas+Calculator", use_column_width=True)
     st.title("Menu Navigasi")
