@@ -302,7 +302,7 @@ with tab3:
     
 
 with tab4:
-    st.header("ℹ️ Tentang Kami")
+    st.header("ℹ️ About Us")
 
     st.subheader("Kelompok 8 – Mata Kuliah Logika Pemrograman Komputer")
 
